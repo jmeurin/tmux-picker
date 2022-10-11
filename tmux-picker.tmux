@@ -58,7 +58,9 @@ PATTERNS_LIST1=(
 "(()[0-9a-f]{7,40})" # hex numbers (e.g. git hashes)
 "(()(https?://|git@|git://|ssh://|ftp://|file:///)[[:alnum:]?=%/_.:,;~@!#$&)(*+-]*)" # URLs
 "(()[[:digit:]]{1,3}\.[[:digit:]]{1,3}\.[[:digit:]]{1,3}\.[[:digit:]]{1,3})" # IP adresses
+"(()([0-9a-fA-F]{1,4}::?){1,8})"  # IPv6
 "(()0x[0-9a-fA-F]+)" # hex numbers
+"(()([a-z]{4,10}[0-9]{1,10})(-n[0-9a-f]{2,5}){0,1})" # prod hosts
 )
 
 # alternative patterns group (shown after pressing the SPACE key)
