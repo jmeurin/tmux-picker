@@ -84,11 +84,11 @@ set_tmux_env PICKER_PATTERNS1 $(array_join "|" "${PATTERNS_LIST1[@]}")
 set_tmux_env PICKER_PATTERNS2 $(array_join "|" "${PATTERNS_LIST2[@]}")
 set_tmux_env PICKER_BLACKLIST_PATTERNS $(array_join "|" "${BLACKLIST[@]}")
 
-set_tmux_env PICKER_COPY_COMMAND "xclip -f -in -sel primary | xclip -in -sel clipboard"
+set_tmux_env PICKER_COPY_COMMAND "xclip -d :1 -f -in -sel primary | xclip -d :1 -f -in -sel clipboard | tmux loadb -"
 set_tmux_env PICKER_COPY_COMMAND_UPPERCASE "bash -c 'arg=\$(cat -); tmux split-window -h -c \"#{pane_current_path}\" vim \"\$arg\"'"
 
-#set_tmux_env PICKER_HINT_FORMAT $(process_format "#[fg=color0,bg=color202,dim,bold]%s")
-set_tmux_env PICKER_HINT_FORMAT $(process_format "#[fg=black,bg=red,bold]%s")
+set_tmux_env PICKER_HINT_FORMAT $(process_format "#[fg=color0,bg=color202,bold]%s")
+#set_tmux_env PICKER_HINT_FORMAT $(process_format "#[fg=black,bg=red,bold]%s")
 set_tmux_env PICKER_HINT_FORMAT_NOCOLOR "%s"
 
 #set_tmux_env PICKER_HIGHLIGHT_FORMAT $(process_format "#[fg=black,bg=color227,normal]%s")
