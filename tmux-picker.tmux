@@ -27,7 +27,7 @@ function array_join() {
 #
 
 # Every pattern have be of form ((A)B) where:
-#  - A is part that will not be highlighted (e.g. escape sequence, whitespace) 
+#  - A is part that will not be highlighted (e.g. escape sequence, whitespace)
 #  - B is part will be highlighted (can contain subgroups)
 #
 # Valid examples:
@@ -56,11 +56,12 @@ PATTERNS_LIST1=(
 "(()[0-9]+\.[0-9]{3,}|[0-9]{5,})" # long numbers
 "(()[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})" # UUIDs
 "(()[0-9a-f]{7,40})" # hex numbers (e.g. git hashes)
-"(()(https?://|git@|git://|ssh://|ftp://|file:///)[[:alnum:]?=%/_.:,;~@!#$&)(*+-]*)" # URLs
+"(()((https?|git|ssh|ftp|gs)://|file:///|git@)[[:alnum:]?=%/_.:,;~@!#$&)(*+-]*)" # URLs
 "(()[[:digit:]]{1,3}\.[[:digit:]]{1,3}\.[[:digit:]]{1,3}\.[[:digit:]]{1,3})" # IP adresses
-"(()([0-9a-fA-F]{1,4}::?){1,8})"  # IPv6
+"(()([0-9a-fA-F]{2,4}::?){1,7}[0-9a-fA-F]{0,4})"  # MAC addresses and IPv6
 "(()0x[0-9a-fA-F]+)" # hex numbers
-"(()([a-z]{4,10}[0-9]{1,10})(-n[0-9a-f]{2,5}){0,1})" # prod hosts
+"(($CS)([a-z]{4,10}[0-9]{1,10}(-n[0-9a-f]{2,4})?))" # prod hosts
+"(()(b|cl)/[0-9]+)" # Bugs and CLs
 )
 
 # alternative patterns group (shown after pressing the SPACE key)
