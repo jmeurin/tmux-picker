@@ -130,18 +130,15 @@ input=''
 function run_picker_copy_command() {
     local result="$1"
     local hint="$2"
-
-    is_uppercase=$(echo "$input" | grep -E '^[a-z]+$' &> /dev/null; echo $?)
-
-    if [[ $is_uppercase == "1" ]] && [ ! -z "$PICKER_COPY_COMMAND_UPPERCASE" ]; then
-        command_to_run="$PICKER_COPY_COMMAND_UPPERCASE"
-    elif [ ! -z "$PICKER_COPY_COMMAND" ]; then
-        command_to_run="$PICKER_COPY_COMMAND"
-    fi
-
-    if [[ ! -z "$command_to_run" ]]; then
-        tmux run-shell -b "printf '$result' | $command_to_run"
-    fi
+    declare -a commands_to_run=(
+"xclip -d ${JME_DEFAULT_DISPLAY} -f -selection clipboard"
+"xclip -d ${JME_DEFAULT_DISPLAY} -f -selection primary"
+"tmux load-buffer -w -"
+)
+    for cmd in "${commands_to_run[@]}"; do
+        printf "$result" | $cmd
+        $? && tmux display "Failed to copy"
+    done
 }
 
 while read -rsn1 char; do

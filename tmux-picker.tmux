@@ -85,7 +85,10 @@ set_tmux_env PICKER_PATTERNS1 $(array_join "|" "${PATTERNS_LIST1[@]}")
 set_tmux_env PICKER_PATTERNS2 $(array_join "|" "${PATTERNS_LIST2[@]}")
 set_tmux_env PICKER_BLACKLIST_PATTERNS $(array_join "|" "${BLACKLIST[@]}")
 
-set_tmux_env PICKER_COPY_COMMAND "xclip -d :1 -f -selection primary | xclip -d :1 -f -selection clipboard | tmux load-buffer -w -"
+# JME - This is now in hint_mode.sh as I can't figure out how to set
+# array var in tmux.
+#set_tmux_env PICKER_COPY_COMMAND "tmux load-buffer -w -"
+#set_tmux_env PICKER_COPY_COMMAND "xclip -d ${JME_DEFAULT_DISPLAY} -f -selection primary | xclip -d ${JME_DEFAULT_DISPLAY} -f -selection clipboard | tmux load-buffer -w -"
 #set_tmux_env PICKER_COPY_COMMAND_UPPERCASE "bash -c 'arg=\$(cat -); tmux split-window -h -c \"#{pane_current_path}\" vim \"\$arg\"'"
 
 set_tmux_env PICKER_HINT_FORMAT $(process_format "#[fg=color0,bg=color202,bold]%s")
