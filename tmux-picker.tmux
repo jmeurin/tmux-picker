@@ -60,8 +60,9 @@ PATTERNS_LIST1=(
 "(()[[:digit:]]{1,3}\.[[:digit:]]{1,3}\.[[:digit:]]{1,3}\.[[:digit:]]{1,3})" # IP adresses
 "(()([0-9a-fA-F]{2,4}::?){1,7}[0-9a-fA-F]{0,4})"  # MAC addresses and IPv6
 "(()0x[0-9a-fA-F]+)" # hex numbers
-"(($CS)([a-z]{4,10}[0-9]{1,10}(-n[0-9a-f]{2,4})?))" # prod hosts
+"(()([a-z]{4,10}[0-9]{1,10}(-n[0-9a-f]{2,4})?))" # prod hosts
 "(()(b|cl)/[0-9]+)" # Bugs and CLs
+"(()(1-([0-9a-f]{8}_?){5}))" # MPMs
 )
 
 # alternative patterns group (shown after pressing the SPACE key)
