@@ -131,8 +131,8 @@ function run_picker_copy_command() {
     local result="$1"
     local hint="$2"
     declare -a commands_to_run=(
-"xclip -d ${JME_DEFAULT_DISPLAY} -f -selection clipboard"
-"xclip -d ${JME_DEFAULT_DISPLAY} -f -selection primary"
+"xclip -d ${DISPLAY} -f -selection clipboard"
+"xclip -d ${DISPLAY} -f -selection primary"
 "tmux load-buffer -w -"
 )
     for cmd in "${commands_to_run[@]}"; do
