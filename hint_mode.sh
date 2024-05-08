@@ -7,6 +7,7 @@ picker_pane_id=$2
 last_pane_id=$3
 picker_window_id=$4
 pane_input_temp=$5
+open_url=${6:-}
 
 eval "$(tmux show-env -g -s | grep ^PICKER)"
 
@@ -84,7 +85,11 @@ function handle_exit() {
     revert_to_original_pane
 
     if [[ ! -z "$result" ]]; then
-        run_picker_copy_command "$result" "$input"
+        if [[ -z "${open_url}" ]]; then
+            run_picker_copy_command "$result" "$input"
+        else
+            run_picker_open_command "$result"
+        fi
     fi
 
     tmux kill-window -t "$picker_window_id"
@@ -141,6 +146,12 @@ function run_picker_copy_command() {
     done
 }
 
+function run_picker_open_command() {
+    local result=$1
+
+    nohup /usr/bin/xdg-open "$result" &
+}
+
 while read -rsn1 char; do
     if [[ $char == "$BACKSPACE" ]]; then
         input=""
@@ -169,7 +180,7 @@ while read -rsn1 char; do
         input=""
         continue
     elif [[ $char == "<ESC>" ]]; then
-            exit
+        exit
     elif [[ $char == "" ]]; then
         if [ "$PICKER_PATTERNS" = "$PICKER_PATTERNS1" ]; then
                 export PICKER_PATTERNS=$PICKER_PATTERNS2;
