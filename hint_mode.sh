@@ -7,7 +7,6 @@ picker_pane_id=$2
 last_pane_id=$3
 picker_window_id=$4
 pane_input_temp=$5
-open_url=${6:-}
 
 eval "$(tmux show-env -g -s | grep ^PICKER)"
 
@@ -180,7 +179,7 @@ while read -rsn1 char; do
         input=""
         continue
     elif [[ $char == "<ESC>" ]]; then
-        exit
+            exit
     elif [[ $char == "" ]]; then
         if [ "$PICKER_PATTERNS" = "$PICKER_PATTERNS1" ]; then
                 export PICKER_PATTERNS=$PICKER_PATTERNS2;
@@ -189,6 +188,8 @@ while read -rsn1 char; do
         fi
         show_hints_again "$picker_pane_id"
         continue
+    elif [[ $char == "o" ]]; then
+        open_url=1
     else
         input="$input$char"
     fi

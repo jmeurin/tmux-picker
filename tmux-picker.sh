@@ -2,8 +2,6 @@
 
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-open_url=${1:-}
-
 function init_picker_pane() {
     local last_pane_id=$1
     local picker_ids=$(tmux new-window -F "#{pane_id}:#{window_id}" -P -d -n "[picker]" "/bin/sh")
@@ -66,7 +64,7 @@ function prompt_picker_for_pane() {
     local tmp_path=$(mktemp)
 
     capture_pane "$current_pane_id" "$tmp_path"
-    pane_exec "$picker_pane_id" "$CURRENT_DIR/hint_mode.sh \"$current_pane_id\" \"$picker_pane_id\" \"$last_pane_id\" \"$picker_window_id\" $tmp_path $open_url"
+    pane_exec "$picker_pane_id" "$CURRENT_DIR/hint_mode.sh \"$current_pane_id\" \"$picker_pane_id\" \"$last_pane_id\" \"$picker_window_id\" $tmp_path"
 
     echo $picker_pane_id
 }

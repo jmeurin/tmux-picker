@@ -104,5 +104,4 @@ set_tmux_env PICKER_HIGHLIGHT_FORMAT $(process_format "#[fg=black,bg=yellow,bold
 #
 
 tmux bind $(echo "$PICKER_KEY") run-shell "$CURRENT_DIR/tmux-picker.sh"
-tmux bind b run-shell "$CURRENT_DIR/tmux-picker.sh 1"
 
