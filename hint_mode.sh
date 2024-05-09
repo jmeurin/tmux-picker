@@ -84,9 +84,8 @@ function handle_exit() {
     revert_to_original_pane
 
     if [[ ! -z "$result" ]]; then
-        if [[ -z "${open_url}" ]]; then
-            run_picker_copy_command "$result" "$input"
-        else
+        run_picker_copy_command "$result" "$input"
+        if [[ ! -z "${open_url}" ]]; then
             run_picker_open_command "$result"
         fi
     fi
