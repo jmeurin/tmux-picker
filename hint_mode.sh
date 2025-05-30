@@ -84,9 +84,12 @@ function handle_exit() {
     revert_to_original_pane
 
     if [[ ! -z "$result" ]]; then
-        run_picker_copy_command "$result" "$input"
+        run_picker_copy_command "$result"
         if [[ ! -z "${open_url}" ]]; then
-            run_picker_open_command "$result"
+            nohup /usr/bin/xdg-open "$result" &
+        fi
+        if [[ ! -z "${paste}" ]]; then
+            tmux send-keys "$result"
         fi
     fi
 
@@ -132,7 +135,6 @@ input=''
 
 function run_picker_copy_command() {
     local result="$1"
-    local hint="$2"
     declare -a commands_to_run=(
 "xclip -d ${DISPLAY} -f -selection clipboard"
 "xclip -d ${DISPLAY} -f -selection primary"
@@ -142,12 +144,6 @@ function run_picker_copy_command() {
         printf "$result" | $cmd
         $? && tmux display "Failed to copy"
     done
-}
-
-function run_picker_open_command() {
-    local result=$1
-
-    nohup /usr/bin/xdg-open "$result" &
 }
 
 while read -rsn1 char; do
@@ -174,12 +170,15 @@ while read -rsn1 char; do
         continue
     fi
 
-    if [[ $char == "$BACKSPACE" ]]; then
+    case $char in
+      "$BACKSPACE")
         input=""
         continue
-    elif [[ $char == "<ESC>" ]]; then
-            exit
-    elif [[ $char == "" ]]; then
+        ;;
+      "<ESC>")
+        exit
+        ;;
+      "")
         if [ "$PICKER_PATTERNS" = "$PICKER_PATTERNS1" ]; then
                 export PICKER_PATTERNS=$PICKER_PATTERNS2;
         else
@@ -187,11 +186,17 @@ while read -rsn1 char; do
         fi
         show_hints_again "$picker_pane_id"
         continue
-    elif [[ $char == "o" ]]; then
+        ;;
+      "o")
         open_url=1
-    else
+        ;;
+      "b")
+        paste=1
+        ;;
+      *)
         input="$input$char"
-    fi
+        ;;
+    esac
 
     result=$(lookup_match "$input")
 
