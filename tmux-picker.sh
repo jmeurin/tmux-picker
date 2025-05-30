@@ -44,7 +44,8 @@ function capture_pane() {
         end_capture="-"
     fi
 
-    tmux capture-pane -e -J -p -t $pane_id -E $end_capture -S $start_capture > $out_path
+    # JME - Remove the -e to find the fig hash that are underlined.
+    tmux capture-pane -J -p -t $pane_id -E $end_capture -S $start_capture > $out_path
 }
 
 function pane_exec() {
