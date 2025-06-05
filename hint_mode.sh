@@ -190,7 +190,7 @@ while read -rsn1 char; do
       "o")
         open_url=1
         ;;
-      "b")
+      "p")
         paste=1
         ;;
       *)
