@@ -52,8 +52,8 @@ function pane_exec() {
     local pane_id=$1
     local pane_command=$2
 
-    tmux send-keys -t $pane_id " $pane_command"
-    tmux send-keys -t $pane_id Enter
+    tmux send-keys -t $pane_id " $pane_command" Enter
+#    tmux send-keys -t $pane_id Enter
 }
 
 function prompt_picker_for_pane() {
